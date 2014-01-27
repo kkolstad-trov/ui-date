@@ -15,6 +15,17 @@ describe('uiDate', function() {
         expect(element.datepicker()).toBeDefined();
       });
     });
+    it('should obey the read-only tag if it is there', function() {
+      inject(function($compile, $rootScope) {
+        var aDate, element;
+        aDate = new Date(2010, 12, 1);
+        element = $compile("<input ui-date='{showAnim: false}' ng-model='x' readonly='readonly' />")($rootScope);
+        $rootScope.$apply();
+        $(document.body).append(element);
+        // selectDate(element, aDate);
+        expect(angular.element('#ui-datepicker-div').is(":visible")).toBeFalsy();
+      });
+    });
     it('should be able to get the date from the model', function() {
       inject(function($compile, $rootScope) {
         var aDate, element;

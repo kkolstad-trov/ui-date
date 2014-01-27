@@ -45,6 +45,12 @@ angular.module('ui.date', [])
           opts.onClose = function(value, picker) {
             showing = false;
           };
+          element.on('focus', function(focusEvent) {
+            if ( attrs.readonly ) {
+                // element.datepicker("hide"); // still visible
+                focusEvent.stopImmediatePropagation();
+            }
+          });
           element.on('blur', function() {
             if ( !showing ) {
               scope.$apply(function() {
